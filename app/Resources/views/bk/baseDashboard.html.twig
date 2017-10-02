@@ -12,9 +12,13 @@
 {# </head> #}
 
 {# <body> #}
+{% block avanzu_logo %}
+    {{ parent() }}
+{% endblock %}
 
-
-
+{% block avanzu_navbar %}
+    {{ parent() }}
+{% endblock %}
 
 {% block avanzu_admin_footer %} 
     <footer class="main-footer footer">
