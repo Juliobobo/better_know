@@ -1,0 +1,27 @@
+{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+
+{# <head> #}
+{% block title %}Better Know{% endblock %}
+
+{% block stylesheets %} 
+    {{ parent()}} 
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+{% endblock %}
+
+{%  block javascripts_head %} {{ parent()}} {% endblock %}
+{# </head> #}
+
+{# <body> #}
+
+
+
+
+{% block avanzu_admin_footer %} 
+    <footer class="main-footer footer">
+        <div class="pull-right hidden-xs">
+            <p class="copyright">Version 1.0 </p>
+        </div>
+        <p class="copyright">&copy; 2017 - Better Know - All rights reserved.  </p>
+    </footer>
+{% endblock %}
+{# </body> #}
