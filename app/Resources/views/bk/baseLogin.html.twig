@@ -1,17 +1,32 @@
-{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+{% extends 'AvanzuAdminThemeBundle:layout:login-layout.html.twig' %}
 
 {# <head> #}
-{% block title %}Better Know{% endblock %}
+{% block title %}Better Know - Login{% endblock %}
 
-{% block stylesheets %} {{ parent()}} {% endblock %}
-
-{%  block javascripts_head %} {{ parent()}} {% endblock %}
+{% block stylesheets %} 
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/styleLogin.css') }}" />
+{% endblock %}
 {# </head> #}
 
 {# <body> #}
+{% block page_content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="login-form-header">
+                    <h4>BK - ADMIN PANEL</h4>
+                </div>
+                {% block security %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-
-
-
-
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+{% endblock %}
 {# </body> #}

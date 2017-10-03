@@ -1,0 +1,44 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends '::bk/baseLogin.html.twig' %}
+
+
+{% block security %}
+    {% block fos_user_content %}
+        <div class="login-wrapper">
+            {% if error %}
+                <div class="alert alert-danger alert-error">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+            
+            <form method="POST" action="{{ path('fos_user_security_check') }}">
+                
+                {% if csrf_token %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                {% endif %}
+                
+                <div class="form-group">
+                    <label for="username">{{ 'security.login.username'|trans }}</label>
+                    <input type="text" name="_username" class="form-control form-control-override"  
+                           id="username" value="{{ last_username }}" required="required">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">{{ 'security.login.password'|trans }}</label>
+                    <input type="password" name="_password" class="form-control form-control-override" 
+                           id="password" autocomplete="new-password" required="required">
+                </div>
+                 
+                
+                <input type="submit" class="btn btn-default btn-cfg button-right"
+                         id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}">
+                <a href="{{ path('fos_user_resetting_request') }}" 
+                   class="btn btn-default btn-cfg button-left" role="button">Forgot Password ?</a>
+                
+            </form>
+
+            <span class="clear-overrap"></span>
+
+        </div>
+    {% endblock fos_user_content%}
+{% endblock %}
