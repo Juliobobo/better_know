@@ -1,0 +1,7 @@
+[03-Oct-2017 12:19:10 UTC] PHP Fatal error:  Class 'FOS\UserBundle\FOSUserBundle' not found in /home/ubuntu/workspace/better_know/app/AppKernel.php on line 18
+[03-Oct-2017 12:19:10 UTC] PHP Stack trace:
+[03-Oct-2017 12:19:10 UTC] PHP   1. {main}() /home/ubuntu/workspace/better_know/web/app.php:0
+[03-Oct-2017 12:19:10 UTC] PHP   2. Symfony\Component\HttpKernel\Kernel->handle() /home/ubuntu/workspace/better_know/web/app.php:19
+[03-Oct-2017 12:19:10 UTC] PHP   3. Symfony\Component\HttpKernel\Kernel->boot() /home/ubuntu/workspace/better_know/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/Kernel.php:168
+[03-Oct-2017 12:19:10 UTC] PHP   4. Symfony\Component\HttpKernel\Kernel->initializeBundles() /home/ubuntu/workspace/better_know/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/Kernel.php:116
+[03-Oct-2017 12:19:10 UTC] PHP   5. AppKernel->registerBundles() /home/ubuntu/workspace/better_know/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/Kernel.php:450
