@@ -1,6 +1,11 @@
 {% trans_default_domain 'FOSUserBundle' %}
-{% extends '::bk/baseLogin.html.twig' %}
+{% extends '::bk/baseFOSUser.html.twig' %}
 
+{% block title %}Better Know - Login{% endblock %}
+
+{% block header_title %}
+    <h4>BK - ADMIN PANEL</h4>
+{% endblock %}
 
 {% block security %}
     {% block fos_user_content %}

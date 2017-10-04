@@ -1,0 +1,20 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends '::bk/baseFOSUser.html.twig' %}
+
+{% block title %}Better Know - Confirmed{% endblock %}
+
+{% block header_title %}
+    <h4>BK - Confirmation</h4>
+{% endblock %}
+
+{% block security %}
+    {% block fos_user_content %}
+        <div class="login-wrapper">
+            <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+            {% if targetUrl %}
+                <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+            {% endif %}
+            <p><a href="#"> Let's go on BK Dashboard </p>
+        </div>
+    {% endblock fos_user_content %}
+{% endblock %}

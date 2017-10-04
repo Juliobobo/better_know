@@ -14,6 +14,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('BetterknowBundle:Security:login.html.twig');
+        return $this->render('BetterknowBundle:bk:index.html.twig');
     }
 }

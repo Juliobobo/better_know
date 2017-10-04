@@ -1,0 +1,16 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends '::bk/baseFOSUser.html.twig' %}
+
+{% block title %}Better Know - CheckEmail{% endblock %}
+
+{% block header_title %}
+    <h4>BK - CheckEmail</h4>
+{% endblock %}
+
+{% block security %}
+    {% block fos_user_content %}
+        <div class="login-wrapper">
+            <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
+        </div>
+    {% endblock fos_user_content %}
+{% endblock %}

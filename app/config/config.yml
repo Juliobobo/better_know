@@ -76,7 +76,7 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: AppBundle\Entity\User
+    user_class: BetterknowBundle\Entity\User
     from_email:
         address: "julien.bonnardel94@gmail.com"
         sender_name: "Bonnardel"
