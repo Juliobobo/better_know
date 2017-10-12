@@ -31,14 +31,14 @@ class Quizz
     /**
      * A quizz belong to a pack
      * @ORM\ManyToOne(targetEntity="BetterknowBundle\Entity\Pack")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $pack;
     
     /**
      * A quizz have an answer
      * @ORM\ManyToOne(targetEntity="BetterknowBundle\Entity\Answer")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $answer;
     
