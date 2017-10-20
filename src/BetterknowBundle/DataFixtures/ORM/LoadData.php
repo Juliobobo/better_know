@@ -73,6 +73,17 @@ class Fixtures extends Fixture
         }
         /* ------------------------------ */
         
+        /*
+         * Gems
+         */
+        for($i = 0; $i < 10; $i++){
+            $gem[$i] = new \BetterknowBundle\Entity\Gem();
+            $gem[$i]->setGender(true)
+                        ->setTimeReceive(new \DateTime())
+                        ->setUser($userAdmin);
+            $manager->persist($gem[$i]);
+        }
+        
         $manager->flush();
     }
 }

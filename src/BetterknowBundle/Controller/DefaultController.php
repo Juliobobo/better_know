@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/home")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction()

@@ -5,3 +5,7 @@ betterknow:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+gems:
+    type:     rest
+    resource: BetterknowBundle\Controller\GemController

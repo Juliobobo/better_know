@@ -80,3 +80,15 @@ fos_user:
     from_email:
         address: "julien.bonnardel94@gmail.com"
         sender_name: "Bonnardel"
+
+#FOSRestBundle
+fos_rest:
+    body_converter:
+        enabled: true
+    view:
+        formats: { json: true, xml: false, rss: false }
+    serializer:
+        serialize_null: true
+        
+sensio_framework_extra:
+    view: { annotations: false }

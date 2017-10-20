@@ -24,14 +24,14 @@ class Gem
     /**
      * @var bool
      *
-     * @ORM\Column(name="gender", type="boolean", unique=true, nullable=true)
+     * @ORM\Column(name="gender", type="boolean", unique=false, nullable=true)
      */
     private $gender;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="timeReceive", type="time", unique=true)
+     * @ORM\Column(name="timeReceive", type="time", unique=false)
      */
     private $timeReceive;
     
