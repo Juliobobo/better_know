@@ -34,11 +34,11 @@ class GemController extends Controller
     }
     
 
-    public function getGemAction(Request $request)
+    public function getGemAction($id, Request $request)
     {
         $gem = $this->get('doctrine.orm.entity_manager')
                 ->getRepository('BetterknowBundle:Gem')
-                ->find($request->get('gem_id'));
+                ->find($id);
         
         /* @var $gem Gem */
         
