@@ -8,6 +8,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
 
 framework:
     #esi: ~
@@ -34,6 +35,8 @@ framework:
     assets: ~
     php_errors:
         log: true
+    serializer:
+        enabled: false
 
 # Twig Configuration
 twig:
@@ -89,6 +92,17 @@ fos_rest:
         formats: { json: true, xml: false, rss: false }
     serializer:
         serialize_null: true
+    routing_loader:
+        include_format: false
+    view:
+        view_response_listener: force
         
 sensio_framework_extra:
     view: { annotations: false }
+
+#JMSSerializer  
+jms_serializer:
+    handlers:
+        datetime:
+            default_format: "Y-m-d\\TH:i:sP"
+            default_timezone: "UTC"
