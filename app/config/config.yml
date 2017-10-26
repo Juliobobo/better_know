@@ -8,7 +8,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
+    #jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
 
 framework:
     #esi: ~
@@ -36,7 +36,7 @@ framework:
     php_errors:
         log: true
     serializer:
-        enabled: false
+        enabled: true
 
 # Twig Configuration
 twig:
@@ -86,23 +86,25 @@ fos_user:
 
 #FOSRestBundle
 fos_rest:
-    body_converter:
-        enabled: true
-    view:
-        formats: { json: true, xml: false, rss: false }
-    serializer:
-        serialize_null: true
     routing_loader:
         include_format: false
     view:
-        view_response_listener: force
-        
+        view_response_listener: true
+    format_listener:
+        rules:
+            #- { path: '^/home', priorities: ['html'], fallback_format: ~}
+            #- { path: '^/login', priorities: ['html'], fallback_format: ~}
+            #- { path: '^/gems', priorities: ['json'], fallback_format: 'json' }
+            - { path: '^/', priorities: ['json'], fallback_format: 'json' }
+    body_converter:
+        enabled: true
+ 
 sensio_framework_extra:
-    view: { annotations: false }
+    view: { annotations: true }
 
 #JMSSerializer  
-jms_serializer:
-    handlers:
-        datetime:
-            default_format: "Y-m-d\\TH:i:sP"
-            default_timezone: "UTC"
+#jms_serializer:
+ #   handlers:
+  #      datetime:
+   #         default_format: "Y-m-d\\TH:i:sP"
+    #        default_timezone: "UTC"

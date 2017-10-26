@@ -37,11 +37,16 @@ class Gem
     
     /**
      * A gem belong to a user
-     * @ORM\ManyToOne(targetEntity="BetterknowBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="BetterknowBundle\Entity\User", inversedBy="gems")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
-
+    protected $user;
+   
+    public function __construct()
+    {
+        $this->timeReceive = new \DateTime();
+    }
+    
     /**
      * Get id
      *
@@ -110,7 +115,7 @@ class Gem
     public function setUser(\BetterknowBundle\Entity\User $user)
     {
         $this->user = $user;
-
+        
         return $this;
     }
 

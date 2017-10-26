@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new BetterknowBundle\BetterknowBundle(),
             new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
+            //new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
         ];
 

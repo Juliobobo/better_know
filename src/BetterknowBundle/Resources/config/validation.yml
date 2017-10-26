@@ -1,0 +1,6 @@
+# src/BetterknowBundle/Resources/config/validation.yml
+            
+BetterknowBundle\Entity\Gem:
+    properties:
+        gender:
+            - Type: bool

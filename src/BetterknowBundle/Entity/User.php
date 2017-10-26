@@ -4,6 +4,8 @@ namespace BetterknowBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * User
@@ -23,6 +25,11 @@ class User extends BaseUser
     protected $id;
     
     /**
+     * @ORM\OneToMany(targetEntity="BetterknowBundle\Entity\Gem", mappedBy="user")
+     */
+    protected $gems;
+
+    /**
      * @ORM\ManyToMany(targetEntity="BetterknowBundle\Entity\Pack", cascade={"persist"})
      */
     private $packs;
@@ -36,8 +43,9 @@ class User extends BaseUser
     {
         parent::__construct();
         
-        $this->packs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->units = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->packs = new ArrayCollection();
+        $this->units = new ArrayCollection();
+        $this->gems = new ArrayCollection();
     }
 
     /**
@@ -106,5 +114,39 @@ class User extends BaseUser
     public function getUnits()
     {
         return $this->units;
+    }
+
+    /**
+     * Add gem
+     *
+     * @param \BetterknowBundle\Entity\Gem $gem
+     *
+     * @return User
+     */
+    public function addGem(\BetterknowBundle\Entity\Gem $gem)
+    {
+        $this->gems[] = $gem;
+
+        return $this;
+    }
+
+    /**
+     * Remove gem
+     *
+     * @param \BetterknowBundle\Entity\Gem $gem
+     */
+    public function removeGem(\BetterknowBundle\Entity\Gem $gem)
+    {
+        $this->gems->removeElement($gem);
+    }
+
+    /**
+     * Get gems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGems()
+    {
+        return $this->gems;
     }
 }

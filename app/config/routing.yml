@@ -8,4 +8,4 @@ fos_user:
 
 gems:
     type:     rest
-    resource: BetterknowBundle\Controller\GemController
+    resource: BetterknowBundle\Controller\User\GemController

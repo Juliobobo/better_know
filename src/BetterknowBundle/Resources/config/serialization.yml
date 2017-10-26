@@ -1,0 +1,18 @@
+# src/BetterknowBundle/Resources/config/serialization.yml
+
+BetterknowBundle\Entity\User:
+    attributes:
+        id:
+            groups: ['gem']
+        
+        
+BetterknowBundle\Entity\Gem:
+    attributes:
+        id:
+            groups: ['gem']
+        gender:
+            groups: ['gem']
+        timeReceive:
+            groups: ['gem']
+        user:
+            groups: ['gem']
