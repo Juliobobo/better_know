@@ -4,6 +4,8 @@ BetterknowBundle\Entity\User:
     attributes:
         id:
             groups: ['gem']
+        gems:
+            groups: ['']
         
         
 BetterknowBundle\Entity\Gem:
