@@ -83,6 +83,9 @@ fos_user:
     from_email:
         address: "julien.bonnardel94@gmail.com"
         sender_name: "Bonnardel"
+    registration:
+        form:
+            type: BetterknowBundle\Form\RegistrationType
 
 #FOSRestBundle
 fos_rest:

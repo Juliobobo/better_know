@@ -25,6 +25,34 @@ class User extends BaseUser
     protected $id;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=255, unique=false, nullable=false)
+     */
+    private $firstName;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=255, unique=false, nullable=false)
+     */
+    private $lastName;
+    
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="age", type="integer", unique=false, nullable=false)
+     */
+    private $age;
+    
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="gender", type="boolean", unique=false, nullable=true)
+     */
+    private $gender;
+    
+    /**
      * @ORM\OneToMany(targetEntity="BetterknowBundle\Entity\Gem", mappedBy="user")
      */
     protected $gems;
@@ -116,5 +144,133 @@ class User extends BaseUser
         return $this->units;
     }
 
-    
+    /**
+     * Add gem
+     *
+     * @param \BetterknowBundle\Entity\Gem $gem
+     *
+     * @return User
+     */
+    public function addGem(\BetterknowBundle\Entity\Gem $gem)
+    {
+        $this->gems[] = $gem;
+
+        return $this;
+    }
+
+    /**
+     * Remove gem
+     *
+     * @param \BetterknowBundle\Entity\Gem $gem
+     */
+    public function removeGem(\BetterknowBundle\Entity\Gem $gem)
+    {
+        $this->gems->removeElement($gem);
+    }
+
+    /**
+     * Get gems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGems()
+    {
+        return $this->gems;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     *
+     * @return User
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     *
+     * @return User
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Set age
+     *
+     * @param integer $age
+     *
+     * @return User
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * Get age
+     *
+     * @return integer
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param boolean $gender
+     *
+     * @return User
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return boolean
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
 }

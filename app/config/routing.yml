@@ -9,3 +9,7 @@ fos_user:
 gems:
     type:     rest
     resource: BetterknowBundle\Controller\User\GemController
+    
+user:
+    type:     rest
+    resource: BetterknowBundle\Controller\User\UserController

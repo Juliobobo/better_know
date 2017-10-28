@@ -1,5 +1,34 @@
 # src/BetterknowBundle/Resources/config/validation.yml
-            
+
+BetterknowBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        firstName:
+            - NotBlank: ~
+            - Type: string
+        lastName:
+            - NotBlank: ~
+            - Type: string
+        username:
+            - NotBlank: ~
+            - Type: string
+        age:
+            - NotBlank: ~
+            - Type: int
+        gender:
+            - NotBlank: ~
+            - Type: boolean
+        email:
+            - NotBlank: ~
+            - Email: ~
+        plainPassword:
+            - NotBlank: { groups: [New, FullUpdate] }
+            - Type: string
+            - Length:
+                min: 4
+                max: 50
+                
 BetterknowBundle\Entity\Gem:
     properties:
         gender:

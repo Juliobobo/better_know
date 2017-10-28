@@ -3,7 +3,19 @@
 BetterknowBundle\Entity\User:
     attributes:
         id:
-            groups: ['gem']
+            groups: ['gem', 'user']
+        username:
+            groups: ['user']
+        firstName:
+            groups: ['user']
+        lastName:
+            groups: ['user']
+        age:
+            groups: ['user']
+        email:
+            groups: ['user']
+        gender:
+            groups: ['user']
         gems:
             groups: ['']
         
