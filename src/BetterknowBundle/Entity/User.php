@@ -31,6 +31,7 @@ class User extends BaseUser
      */
     private $firstName;
     
+    
     /**
      * @var string
      *
@@ -55,7 +56,12 @@ class User extends BaseUser
     /**
      * @ORM\OneToMany(targetEntity="BetterknowBundle\Entity\Gem", mappedBy="user")
      */
-    protected $gems;
+    private $gems;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="BetterknowBundle\Entity\Friend", mappedBy="user")
+     */
+    private $friends;
 
     /**
      * @ORM\ManyToMany(targetEntity="BetterknowBundle\Entity\Pack", cascade={"persist"})
@@ -74,8 +80,27 @@ class User extends BaseUser
         $this->packs = new ArrayCollection();
         $this->units = new ArrayCollection();
         $this->gems = new ArrayCollection();
+        $this->friends = new ArrayCollection();
     }
-
+    
+      // ----------------- //
+     // --- Functions --- //
+    // ----------------- //
+    
+    /*
+     * isFriend
+     */
+    public function isFriend(User $pFriend){
+        foreach ($this->friends as $myFriend) {
+            if($myFriend->getId() == $pFriend->getId()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    //------------------------//
+    
     /**
      * Add pack
      *
@@ -272,5 +297,39 @@ class User extends BaseUser
     public function getGender()
     {
         return $this->gender;
+    }
+
+    /**
+     * Add friend
+     *
+     * @param \BetterknowBundle\Entity\Friend $friend
+     *
+     * @return User
+     */
+    public function addFriend(\BetterknowBundle\Entity\Friend $friend)
+    {
+        $this->friends[] = $friend;
+
+        return $this;
+    }
+
+    /**
+     * Remove friend
+     *
+     * @param \BetterknowBundle\Entity\Friend $friend
+     */
+    public function removeFriend(\BetterknowBundle\Entity\Friend $friend)
+    {
+        $this->friends->removeElement($friend);
+    }
+
+    /**
+     * Get friends
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFriends()
+    {
+        return $this->friends;
     }
 }

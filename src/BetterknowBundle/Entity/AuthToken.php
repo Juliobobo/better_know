@@ -5,12 +5,12 @@ namespace BetterknowBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Gem
+ * AuthToken
  *
- * @ORM\Table(name="gem")
- * @ORM\Entity(repositoryClass="BetterknowBundle\Repository\GemRepository")
+ * @ORM\Table(name="auth_token")
+ * @ORM\Entity(repositoryClass="BetterknowBundle\Repository\AuthTokenRepository")
  */
-class Gem
+class AuthToken
 {
     /**
      * @var int
@@ -22,30 +22,25 @@ class Gem
     private $id;
 
     /**
-     * @var bool
+     * @var string
      *
-     * @ORM\Column(name="gender", type="boolean", unique=false, nullable=true)
+     * @ORM\Column(name="value", type="string", length=255)
      */
-    private $gender;
+    private $value;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="timeReceive", type="time", unique=false)
+     * @ORM\Column(name="createdAt", type="datetime")
      */
-    private $timeReceive;
-    
+    private $createdAt;
+
     /**
-     * A gem belong to a user
-     * @ORM\ManyToOne(targetEntity="BetterknowBundle\Entity\User", inversedBy="gems")
+     * 
+     * @ORM\ManyToOne(targetEntity="BetterknowBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
-   
-    public function __construct()
-    {
-        $this->timeReceive = new \DateTime();
-    }
+    protected $user;
     
     /**
      * Get id
@@ -58,51 +53,51 @@ class Gem
     }
 
     /**
-     * Set gender
+     * Set value
      *
-     * @param integer $gender
+     * @param string $value
      *
-     * @return Gem
+     * @return AuthToken
      */
-    public function setGender($gender)
+    public function setValue($value)
     {
-        $this->gender = $gender;
+        $this->value = $value;
 
         return $this;
     }
 
     /**
-     * Get gender
+     * Get value
      *
-     * @return int
+     * @return string
      */
-    public function getGender()
+    public function getValue()
     {
-        return $this->gender;
+        return $this->value;
     }
 
     /**
-     * Set timeReceive
+     * Set createdAt
      *
-     * @param \DateTime $timeReceive
+     * @param \DateTime $createdAt
      *
-     * @return Gem
+     * @return AuthToken
      */
-    public function setTimeReceive($timeReceive)
+    public function setCreatedAt($createdAt)
     {
-        $this->timeReceive = $timeReceive;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     /**
-     * Get timeReceive
+     * Get createdAt
      *
      * @return \DateTime
      */
-    public function getTimeReceive()
+    public function getCreatedAt()
     {
-        return $this->timeReceive;
+        return $this->createdAt;
     }
 
     /**
@@ -110,12 +105,12 @@ class Gem
      *
      * @param \BetterknowBundle\Entity\User $user
      *
-     * @return Gem
+     * @return AuthToken
      */
     public function setUser(\BetterknowBundle\Entity\User $user)
     {
         $this->user = $user;
-        
+
         return $this;
     }
 

@@ -3,22 +3,40 @@
 BetterknowBundle\Entity\User:
     attributes:
         id:
-            groups: ['gem', 'user']
+            groups: ['gem', 'user', 'friend']
         username:
-            groups: ['user']
+            groups: ['user', 'auth-token']
         firstName:
-            groups: ['user']
+            groups: ['user', 'auth-token']
         lastName:
-            groups: ['user']
+            groups: ['user', 'auth-token']
         age:
-            groups: ['user']
+            groups: ['user', 'auth-token']
         email:
-            groups: ['user']
+            groups: ['user', 'auth-token']
         gender:
-            groups: ['user']
-        gems:
-            groups: ['']
+            groups: ['user', 'auth-token']
+
+BetterknowBundle\Entity\Friend:
+    attributes:
+        id:
+            groups: ['friend']
+        state:
+            groups: ['friend']
+        friend:
+            groups: ['friend']
         
+
+BetterknowBundle\Entity\AuthToken:
+    attributes:
+        id:
+            groups: ['auth-token']
+        value:
+            groups: ['auth-token']
+        createdAt:
+            groups: ['auth-token']
+        user:
+            groups: ['auth-token']
         
 BetterknowBundle\Entity\Gem:
     attributes:

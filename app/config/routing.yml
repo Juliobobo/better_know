@@ -13,3 +13,7 @@ gems:
 user:
     type:     rest
     resource: BetterknowBundle\Controller\User\UserController
+
+auth-tokens:
+    type:     rest
+    resource: BetterknowBundle\Controller\User\AuthTokenController

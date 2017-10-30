@@ -28,6 +28,15 @@ BetterknowBundle\Entity\User:
             - Length:
                 min: 4
                 max: 50
+
+BetterknowBundle\Entity\Credentials:
+    properties:
+        login:
+            - NotBlank: ~
+            - Type: string
+        password:
+            - NotBlank: ~
+            - Type: string
                 
 BetterknowBundle\Entity\Gem:
     properties:

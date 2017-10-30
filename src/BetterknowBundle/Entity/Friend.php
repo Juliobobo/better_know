@@ -38,38 +38,16 @@ class Friend
      */
     private $friend;
     
+    
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set idFriend
-     *
-     * @param integer $idFriend
-     *
-     * @return Friend
-     */
-    public function setIdFriend($idFriend)
-    {
-        $this->idFriend = $idFriend;
-
-        return $this;
-    }
-
-    /**
-     * Get idFriend
-     *
-     * @return int
-     */
-    public function getIdFriend()
-    {
-        return $this->idFriend;
     }
 
     /**
@@ -94,30 +72,6 @@ class Friend
     public function getState()
     {
         return $this->state;
-    }
-
-    /**
-     * Set idUser
-     *
-     * @param \BetterknowBundle\Entity\User $idUser
-     *
-     * @return Friend
-     */
-    public function setIdUser(\BetterknowBundle\Entity\User $idUser = null)
-    {
-        $this->id_user = $idUser;
-
-        return $this;
-    }
-
-    /**
-     * Get idUser
-     *
-     * @return \BetterknowBundle\Entity\User
-     */
-    public function getIdUser()
-    {
-        return $this->id_user;
     }
 
     /**

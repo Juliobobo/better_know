@@ -13,12 +13,58 @@ class Fixtures extends Fixture
         // Admin
         $userAdmin = new User();
         $userAdmin->setUsername('Julien');
+        $userAdmin->setFirstName("Julien");
+        $userAdmin->setLastName("bonnardel");
+        $userAdmin->setAge(15);
+        $userAdmin->setGender(true);
         $userAdmin->setPlainPassword('bkAdmin');
         $userAdmin->setEmail('julien.bonnardel94@gmail.com');
         $userAdmin->setEnabled(true);
         $userAdmin->setRoles(array('ROLE_ADMIN'));
         
         $manager->persist($userAdmin);
+        
+        // Liste de users
+        $name = array('coucou', 'bonjour', 'alain', 'marcel', 'juliette',
+                'charlene', 'zizito', 'lebg', 'charlotte', 'prunelle', 'florence',
+                'mathilde', 'bastien', 'chloe', 'nicolas', 'lefoufou', 'bk', 'team',
+                'oulaoup', 'plaza', 'turin', 'milan');
+        
+        for($i = 0; $i < 10; $i++){
+            $user[$i] = new User();
+            
+            $user[$i]->setUsername($name[$i])
+                    ->setFirstName($name[rand(0, 21)])
+                    ->setLastName($name[rand(0, 21)])
+                    ->setAge(rand(15, 100))
+                    ->setGender(true)
+                    ->setEmail('testouille'.$i.'@gmail.com')
+                    ->setEnabled(true)
+                    ->setPlainPassword('test');
+            
+            $manager->persist($user[$i]);
+        }
+        
+        // Friends
+        for($i = 0; $i < 10; $i++){
+            $friend[$i] = new \BetterknowBundle\Entity\Friend();
+            
+            if($i%2){
+                $friend[$i]->setState(true);
+            }else {
+                $friend[$i]->setState(false);
+            }
+            if($i == 9 || $i == 8){
+                $friend[$i]->setUser($user[$i])
+                        ->setFriend($user[rand(0, 7)]);
+            }else {
+                $friend[$i]->setUser($user[$i])
+                        ->setFriend($user[rand($i+1, 9)]);
+            }
+            
+            $manager->persist($friend[$i]);
+        }
+        
         
         /*
          * There are nine category = personality
