@@ -10,7 +10,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\View;
 use BetterknowBundle\Entity\Friend;
-use BetterknowBundle\Form\FriendType;
 
 class FriendController extends Controller
 {
@@ -50,35 +49,32 @@ class FriendController extends Controller
             return $this->notFound('User');
         }
         
-        foreach ($user->getFriends()->toArray() as $friend) {
-            if ($friend->getId() == $request->get('friend_id')){
-                return $em->getRepository('BetterknowBundle:Friend')
-                ->find($friend->getId());
-            } else {
-                return $this->notFound('Friend');
-            }
+        foreach ($user->getFriends()->toArray() as $friend) {            
+            if ($friend->getFriend()->getId() == $request->get('friend_id')){
+                return $em->getRepository('BetterknowBundle:User')
+                    ->find($friend->getFriend()->getId());
+            } 
         }
+        return $this->notFound('Friend');     
     }
        
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"friend"})
-     * @Rest\Post("/users/{user_id}/friends/{friend_id}")
+     * @Rest\Post("/demand/users/{user_id}/friends/{friend_id}")
      */
-    public function postFriendsAction(Request $request)
+    public function demandFriendShipAction(Request $request)
     {
-        $user = $this->getDoctrine()
+        $emUser = $this->getDoctrine()
                 ->getManager()
-                ->getRepository('BetterknowBundle:User')
-                ->find($request->get('user_id'));
+                ->getRepository('BetterknowBundle:User');
+        
+        $user = $emUser->find($request->get('user_id'));
         /* @var $user User */
         
-        $friend = $this->getDoctrine()
-                ->getManager()
-                ->getRepository('BetterknowBundle:User')
-                ->find($request->get('friend_id'));
+        $friend = $emUser->find($request->get('friend_id'));
         /* @var $friend User */
         
-        if (empty($user)) {
+        if (empty($user) || empty($friend)) {
             return $this->notFound('User ');
         }
         
@@ -88,52 +84,93 @@ class FriendController extends Controller
                 Response::HTTP_NOT_FOUND);
         }
         
+        if($user->getId() == $friend->getId()){
+            return \FOS\RestBundle\View\View::create([
+                'message' => $friend->getUsername().' find friend, it is you'], 
+                Response::HTTP_NOT_FOUND);
+        }
+        
         $friendShip = new Friend();
         $friendShip->setUser($user); // Ici, le user est associé au friend
         $friendShip->setFriend($friend);
-        $form = $this->createForm(FriendType::class, $friendShip);
-
-        // Le paramétre false dit à Symfony de garder les valeurs dans notre
-        // entité si l'utilisateur n'en fournit pas une dans sa requête
-        $form->submit($request->request->all());
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($friend);
-            $em->flush();
-            return $friend;
-        } else {
-            return $form;
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($friendShip);
+        $em->flush();
+        
+        return $friendShip;
+    }
+    
+    /**
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"friend", "confirmShip"})
+     * @Rest\Post("/confirm/users/{user_id}/friends/{friend_id}")
+     */
+    public function confirmFriendShipAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $user = $em->getRepository('BetterknowBundle:User')
+                ->find($request->get('user_id'));
+        /* @var $user User */
+        
+        $friend = $em->getRepository('BetterknowBundle:User')
+                ->find($request->get('friend_id'));
+        /* @var $friend User */
+        
+        $friendShip = $em->getRepository('BetterknowBundle:Friend')
+                    ->findOneBy(
+                            array('user' => $friend, 'friend' => $user)
+                    );
+        
+        if(!$friendShip->getState()) {
+            $friendShip->setState(true);
         }
+        
+        $friendShipInverse = new Friend();
+        $friendShipInverse->setUser($user) 
+                        ->setFriend($friend)
+                        ->setState(true);
+        
+        $em->persist($friendShipInverse);
+        $em->flush();
+        
+        return $friendShipInverse;
     }
     
      /**
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/users/{id}/gems/{gem_id}")
+     * @Rest\Delete("/users/{user_id}/friends/{friend_id}")
      */
     public function removeUserAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         
         $user = $em->getRepository('BetterknowBundle:User')
-                ->find($request->get('id'));
+                ->find($request->get('user_id'));
+        /* @var $user User */
         
-        if (empty($user)) {
-            return $this->notFound('User');
+        $friend = $em->getRepository('BetterknowBundle:User')
+                ->find($request->get('friend_id'));
+        /* @var $friend User */
+        
+        if (empty($user) || empty($friend)) {
+            return $this->notFound('User ');
         }
         
-        foreach ($user->getGems()->toArray() as $gem) {
-            if ($gem->getId() == $request->get('gem_id')){
-                $em->remove(
-                        $em->getRepository('BetterknowBundle:Gem')
-                            ->find($gem->getId())
-                        );
-                $em->flush();
-                return $this->succes();
-            } else {
-                return $this->notFound('Gem');
-            }
+        $friendShip = $em->getRepository('BetterknowBundle:Friend')
+                    ->findOneBy(
+                            array('user' => $friend, 'friend' => $user)
+                    );
+        
+        if (empty($friendShip)) {
+            return $this->notFound('FriendShip ');
         }
+        
+        $em->remove($friendShip);
+        $em->flush();
+        
+        return $this->succes();
+
     }
     
     private function notFound($param)

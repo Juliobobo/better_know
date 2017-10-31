@@ -92,12 +92,11 @@ class User extends BaseUser
      */
     public function isFriend(User $pFriend){
         foreach ($this->friends as $myFriend) {
-            if($myFriend->getId() == $pFriend->getId()){
+            if($myFriend->getFriend()->getId() == $pFriend->getId()){
                 return true;
-            } else {
-                return false;
-            }
+            } 
         }
+        return false;
     }
     //------------------------//
     

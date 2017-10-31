@@ -96,6 +96,15 @@ class Fixtures extends Fixture
         }
         
         /*
+         * Answer
+         */
+        for($i = 0; $i < 10; $i++){
+            $a[$i] = new \BetterknowBundle\Entity\Answer();
+            $a[$i]->setResponse(rand(85, 96));
+            $manager->persist($a[$i]);
+        }
+        
+        /*
          * Quizz
          */
         $question = array('Qui est le plus sérieux ?',
@@ -113,7 +122,8 @@ class Fixtures extends Fixture
             $quizz->setQuestion($q);
             
             $quizz->setPack($pack[rand(0, 9)]);
-            $quizz->addCategory($cat[rand(0, 12)]);
+            $quizz->addCategory($cat[rand(0, 12)])
+                    ->setAnswer($a[rand(0, 9)]);
             
             $manager->persist($quizz);
         }

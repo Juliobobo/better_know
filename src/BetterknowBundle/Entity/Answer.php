@@ -27,7 +27,11 @@ class Answer
      * @ORM\Column(name="response", type="integer")
      */
     private $response;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="BetterknowBundle\Entity\Quizz", mappedBy="answer")
+     */
+    private $question;
 
     /**
      * Get id
@@ -62,5 +66,45 @@ class Answer
     {
         return $this->response;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->question = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add question
+     *
+     * @param \BetterknowBundle\Entity\Quizz $question
+     *
+     * @return Answer
+     */
+    public function addQuestion(\BetterknowBundle\Entity\Quizz $question)
+    {
+        $this->question[] = $question;
+
+        return $this;
+    }
+
+    /**
+     * Remove question
+     *
+     * @param \BetterknowBundle\Entity\Quizz $question
+     */
+    public function removeQuestion(\BetterknowBundle\Entity\Quizz $question)
+    {
+        $this->question->removeElement($question);
+    }
+
+    /**
+     * Get question
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+}

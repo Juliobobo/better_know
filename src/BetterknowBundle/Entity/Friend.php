@@ -38,7 +38,10 @@ class Friend
      */
     private $friend;
     
-    
+    public function __construct()
+    {
+        $this->state = false;
+    }
 
     /**
      * Get id

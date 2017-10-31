@@ -9,10 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\View;
-use BetterknowBundle\Entity\Gem;
+use BetterknowBundle\Entity\Answer;
 use BetterknowBundle\Form\GemType;
 
-class GemController extends Controller
+class AnswerController extends Controller
 {
     
     /**

@@ -5,17 +5,17 @@ BetterknowBundle\Entity\User:
         id:
             groups: ['gem', 'user', 'friend']
         username:
-            groups: ['user', 'auth-token']
+            groups: ['user', 'auth-token', 'friend']
         firstName:
-            groups: ['user', 'auth-token']
+            groups: ['user', 'auth-token', 'friend']
         lastName:
-            groups: ['user', 'auth-token']
+            groups: ['user', 'auth-token', 'friend']
         age:
-            groups: ['user', 'auth-token']
+            groups: ['user', 'auth-token', 'friend']
         email:
             groups: ['user', 'auth-token']
         gender:
-            groups: ['user', 'auth-token']
+            groups: ['user', 'auth-token', 'friend']
 
 BetterknowBundle\Entity\Friend:
     attributes:
@@ -25,6 +25,8 @@ BetterknowBundle\Entity\Friend:
             groups: ['friend']
         friend:
             groups: ['friend']
+        user:
+            groups: ['confirmShip']
         
 
 BetterknowBundle\Entity\AuthToken:
