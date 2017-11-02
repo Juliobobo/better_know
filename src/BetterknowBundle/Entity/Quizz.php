@@ -27,13 +27,11 @@ class Quizz
      * @ORM\Column(name="question", type="string", length=255)
      */
     private $question;
-    
+   
     /**
-     * A quizz have an answer
-     * @ORM\ManyToOne(targetEntity="BetterknowBundle\Entity\Answer")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToMany(targetEntity="BetterknowBundle\Entity\Answer", cascade={"persist"})
      */
-    private $answer;
+    private $answers;
     
     /**
      * @ORM\ManyToMany(targetEntity="BetterknowBundle\Entity\Category", cascade={"persist"})
@@ -41,9 +39,18 @@ class Quizz
     private $categories;
     
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -75,35 +82,37 @@ class Quizz
     }
 
     /**
-     * Set answer
+     * Add answer
      *
      * @param \BetterknowBundle\Entity\Answer $answer
      *
      * @return Quizz
      */
-    public function setAnswer(\BetterknowBundle\Entity\Answer $answer)
+    public function addAnswer(\BetterknowBundle\Entity\Answer $answer)
     {
-        $this->answer = $answer;
+        $this->answers[] = $answer;
 
         return $this;
     }
 
     /**
-     * Get answer
+     * Remove answer
      *
-     * @return \BetterknowBundle\Entity\Answer
+     * @param \BetterknowBundle\Entity\Answer $answer
      */
-    public function getAnswer()
+    public function removeAnswer(\BetterknowBundle\Entity\Answer $answer)
     {
-        return $this->answer;
+        $this->answers->removeElement($answer);
     }
-    
+
     /**
-     * Constructor
+     * Get answers
+     *
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function __construct()
+    public function getAnswers()
     {
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->answers;
     }
 
     /**

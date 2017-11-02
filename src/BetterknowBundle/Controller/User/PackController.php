@@ -12,7 +12,6 @@ use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\View;
 use BetterknowBundle\Entity\Quizz;
 use BetterknowBundle\Entity\Pack;
-use BetterknowBundle\Form\GemType;
 
 class PackController extends Controller
 {   

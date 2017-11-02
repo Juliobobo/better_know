@@ -20,8 +20,7 @@ class QuizzController extends Controller
      */
     public function getQuizzsAction(Request $request)
     {  
-        $quizz = $this->getDoctrine()
-                ->getManager()
+        $quizz = $this->em()
                 ->getRepository('BetterknowBundle:Quizz')
                 ->findAll();
         
@@ -35,48 +34,32 @@ class QuizzController extends Controller
     }
     
     /**
-     * @Rest\View(serializerGroups={"gem"})
-     * @Rest\Get("/users/{id}/gems/{gem_id}")
+     * @Rest\View(serializerGroups={"quizz"})
+     * @Rest\Get("/quizz/{id}")
      */
-    public function getGemAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        
-        $user = $em->getRepository('BetterknowBundle:User')
+    public function getQuizzAction(Request $request)
+    {  
+        $quizz = $this->em()
+                ->getRepository('BetterknowBundle:Quizz')
                 ->find($request->get('id'));
         
-        if (empty($user)) {
-            return $this->notFound('User');
+        /* @var $quizz Quizz */
+        
+        if (empty($quizz)) {
+            return $this->notFound('Quizz');
         }
         
-        foreach ($user->getGems()->toArray() as $gem) {
-            if ($gem->getId() == $request->get('gem_id')){
-                return $em->getRepository('BetterknowBundle:Gem')
-                ->find($gem->getId());
-            }
-        }
-    
-        return $this->notFound('Gem');      
+        return $quizz;
     }
-       
+    
     /**
-     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"gem"})
-     * @Rest\Post("/users/{id}/gems")
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"quizz"})
+     * @Rest\Post("/quizz")
      */
-    public function postGemsAction(Request $request)
+    public function postQuizzAction(Request $request)
     {
-        $user = $this->getDoctrine()
-                ->getManager()
-                ->getRepository('BetterknowBundle:User')
-                ->find($request->get('id'));
-        /* @var $user User */
-
-        if (empty($user)) {
-            return $this->notFound('User ');
-        }
-
-        $gem = new Gem();
-        $gem->setUser($user); // Ici, le user est associé à la gem
+        $quizz = new Quizz();
+        
         $form = $this->createForm(GemType::class, $gem);
 
         // Le paramétre false dit à Symfony de garder les valeurs dans notre
@@ -93,33 +76,8 @@ class QuizzController extends Controller
         }
     }
     
-     /**
-     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/users/{id}/gems/{gem_id}")
-     */
-    public function removeUserAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        
-        $user = $em->getRepository('BetterknowBundle:User')
-                ->find($request->get('id'));
-        
-        if (empty($user)) {
-            return $this->notFound('User');
-        }
-        
-        foreach ($user->getGems()->toArray() as $gem) {
-            if ($gem->getId() == $request->get('gem_id')){
-                $em->remove(
-                        $em->getRepository('BetterknowBundle:Gem')
-                            ->find($gem->getId())
-                        );
-                $em->flush();
-                return $this->succes();
-            }             
-        }
-        
-        return $this->notFound('Gem');
+    private function em(){
+        return $this->getDoctrine()->getManager();
     }
     
     private function notFound($param)
@@ -127,8 +85,4 @@ class QuizzController extends Controller
         return \FOS\RestBundle\View\View::create(['message' => $param.' not found'], Response::HTTP_NOT_FOUND);
     }
     
-    private function succes()
-    {
-        return \FOS\RestBundle\View\View::create(['message' => 'Success'], Response::HTTP_NOT_FOUND);
-    }
 }
