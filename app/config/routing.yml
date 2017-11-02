@@ -6,7 +6,7 @@ betterknow:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
-gems:
+gem:
     type:     rest
     resource: BetterknowBundle\Controller\User\GemController
     
@@ -14,6 +14,14 @@ user:
     type:     rest
     resource: BetterknowBundle\Controller\User\UserController
 
+quizz:
+    type:     rest
+    resource: BetterknowBundle\Controller\Quizz\QuizzController
+    
+pack:
+    type:     rest
+    resource: BetterknowBundle\Controller\User\PackController
+    
 auth-tokens:
     type:     rest
     resource: BetterknowBundle\Controller\User\AuthTokenController

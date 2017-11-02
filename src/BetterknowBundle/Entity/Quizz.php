@@ -29,13 +29,6 @@ class Quizz
     private $question;
     
     /**
-     * A quizz belong to a pack
-     * @ORM\ManyToOne(targetEntity="BetterknowBundle\Entity\Pack")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $pack;
-    
-    /**
      * A quizz have an answer
      * @ORM\ManyToOne(targetEntity="BetterknowBundle\Entity\Answer")
      * @ORM\JoinColumn(nullable=true)
@@ -79,30 +72,6 @@ class Quizz
     public function getQuestion()
     {
         return $this->question;
-    }
-
-    /**
-     * Set pack
-     *
-     * @param \BetterknowBundle\Entity\Pack $pack
-     *
-     * @return Quizz
-     */
-    public function setPack(\BetterknowBundle\Entity\Pack $pack)
-    {
-        $this->pack = $pack;
-
-        return $this;
-    }
-
-    /**
-     * Get pack
-     *
-     * @return \BetterknowBundle\Entity\Pack
-     */
-    public function getPack()
-    {
-        return $this->pack;
     }
 
     /**

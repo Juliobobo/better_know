@@ -24,17 +24,14 @@ class Pack
     /**
      * @var string
      *
-     * @ORM\Column(name="theme", type="string", length=255)
+     * @ORM\Column(name="theme", type="string", length=255, nullable=true)
      */
     private $theme;
-
+    
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="authorization", type="boolean")
+     * @ORM\ManyToMany(targetEntity="BetterknowBundle\Entity\Quizz", cascade={"persist"})
      */
-    private $authorization;
-
+    private $quizz;
 
     /**
      * Get id
@@ -71,27 +68,44 @@ class Pack
     }
 
     /**
-     * Set authorization
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->quizz = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add quizz
      *
-     * @param boolean $authorization
+     * @param \BetterknowBundle\Entity\Quizz $quizz
      *
      * @return Pack
      */
-    public function setAuthorization($authorization)
+    public function addQuizz(\BetterknowBundle\Entity\Quizz $quizz)
     {
-        $this->authorization = $authorization;
+        $this->quizz[] = $quizz;
 
         return $this;
     }
 
     /**
-     * Get authorization
+     * Remove quizz
      *
-     * @return bool
+     * @param \BetterknowBundle\Entity\Quizz $quizz
      */
-    public function getAuthorization()
+    public function removeQuizz(\BetterknowBundle\Entity\Quizz $quizz)
     {
-        return $this->authorization;
+        $this->quizz->removeElement($quizz);
+    }
+
+    /**
+     * Get quizz
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuizz()
+    {
+        return $this->quizz;
     }
 }
-

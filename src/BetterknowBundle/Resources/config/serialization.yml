@@ -27,7 +27,33 @@ BetterknowBundle\Entity\Friend:
             groups: ['friend']
         user:
             groups: ['confirmShip']
-        
+
+BetterknowBundle\Entity\Pack:
+    attributes:
+        id:
+            groups: ['pack']
+        theme:
+            groups: ['pack']
+        quizz:
+            groups: ['pack']
+            
+BetterknowBundle\Entity\Quizz:
+    attributes:
+        id:
+            groups: ['quizz', 'pack']
+        question:
+            groups: ['quizz', 'pack']
+        answer:
+            groups: ['quizz']
+            
+BetterknowBundle\Entity\Answer:
+    attributes:
+        id:
+            groups: ['answer']
+        response:
+            groups: ['answer']
+        question:
+            groups: ['answer']
 
 BetterknowBundle\Entity\AuthToken:
     attributes:

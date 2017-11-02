@@ -29,16 +29,9 @@ class Quizz
     private $question;
     
     /**
-     * A quizz belong to a pack
-     * @ORM\ManyToOne(targetEntity="BetterknowBundle\Entity\Pack")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $pack;
-    
-    /**
      * A quizz have an answer
      * @ORM\ManyToOne(targetEntity="BetterknowBundle\Entity\Answer")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $answer;
     
@@ -82,30 +75,6 @@ class Quizz
     }
 
     /**
-     * Set pack
-     *
-     * @param \BetterknowBundle\Entity\Pack $pack
-     *
-     * @return Quizz
-     */
-    public function setPack(\BetterknowBundle\Entity\Pack $pack)
-    {
-        $this->pack = $pack;
-
-        return $this;
-    }
-
-    /**
-     * Get pack
-     *
-     * @return \BetterknowBundle\Entity\Pack
-     */
-    public function getPack()
-    {
-        return $this->pack;
-    }
-
-    /**
      * Set answer
      *
      * @param \BetterknowBundle\Entity\Answer $answer
@@ -127,5 +96,47 @@ class Quizz
     public function getAnswer()
     {
         return $this->answer;
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add category
+     *
+     * @param \BetterknowBundle\Entity\Category $category
+     *
+     * @return Quizz
+     */
+    public function addCategory(\BetterknowBundle\Entity\Category $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \BetterknowBundle\Entity\Category $category
+     */
+    public function removeCategory(\BetterknowBundle\Entity\Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

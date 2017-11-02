@@ -24,6 +24,15 @@ class Fixtures extends Fixture
         
         $manager->persist($userAdmin);
         
+        /*
+         * Pack
+         */
+        for($i = 0; $i < 10; $i++){
+            $pack[$i] = new \BetterknowBundle\Entity\Pack();
+            $pack[$i]->setAuthorization(rand(0, 1));
+            $manager->persist($pack[$i]);
+        }
+        
         // Liste de users
         $name = array('coucou', 'bonjour', 'alain', 'marcel', 'juliette',
                 'charlene', 'zizito', 'lebg', 'charlotte', 'prunelle', 'florence',
@@ -40,7 +49,8 @@ class Fixtures extends Fixture
                     ->setGender(true)
                     ->setEmail('testouille'.$i.'@gmail.com')
                     ->setEnabled(true)
-                    ->setPlainPassword('test');
+                    ->setPlainPassword('test')
+                    ->addPack($pack[rand(0, 9)]);
             
             $manager->persist($user[$i]);
         }
@@ -87,15 +97,6 @@ class Fixtures extends Fixture
         /* ------------------------------ */
         
         /*
-         * Pack
-         */
-        for($i = 0; $i < 10; $i++){
-            $pack[$i] = new \BetterknowBundle\Entity\Pack();
-            $pack[$i]->setAuthorization(rand(0, 1));
-            $manager->persist($pack[$i]);
-        }
-        
-        /*
          * Answer
          */
         for($i = 0; $i < 10; $i++){
@@ -116,18 +117,21 @@ class Fixtures extends Fixture
                             'Avec qui pourrais-tu avoir un enfant ?',
                             'Avec qui aimerais-tu partager les transports en commun ?',
                             'Qui sera le plus beau dans 10 ans ?');
-        
+        $i = 0;
         foreach ($question as $q){
             $quizz = new \BetterknowBundle\Entity\Quizz();
             $quizz->setQuestion($q);
             
-            $quizz->setPack($pack[rand(0, 9)]);
             $quizz->addCategory($cat[rand(0, 12)])
                     ->setAnswer($a[rand(0, 9)]);
+            $pack[$i]->addQuizz($quizz);
             
             $manager->persist($quizz);
+            $manager->persist($pack[$i]);
+            
+            $i++;
         }
-        /* ------------------------------ */
+        /* ------------------------------ */        
         
         /*
          * Gems

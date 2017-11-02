@@ -9,30 +9,29 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\View;
-use BetterknowBundle\Entity\Answer;
-use BetterknowBundle\Form\GemType;
+use BetterknowBundle\Entity\Quizz;
 
-class AnswerController extends Controller
+class QuizzController extends Controller
 {
     
     /**
-     * @Rest\View(serializerGroups={"answer"})
-     * @Rest\Get("/quizz/{id}/answers")
+     * @Rest\View(serializerGroups={"quizz"})
+     * @Rest\Get("/quizz")
      */
-    public function getAnswersAction(Request $request)
+    public function getQuizzsAction(Request $request)
     {  
-        $answer = $this->getDoctrine()
+        $quizz = $this->getDoctrine()
                 ->getManager()
-                ->getRepository('BetterknowBundle:Answer')
-                ->find($request->get('id'));
+                ->getRepository('BetterknowBundle:Quizz')
+                ->findAll();
         
-        /* @var $user User */
+        /* @var $quizz Quizz */
         
-        if (empty($answer)) {
-            return $this->notFound('User');
+        if (empty($quizz)) {
+            return $this->notFound('Quizz');
         }
         
-        return $user->getGems();
+        return $quizz;
     }
     
     /**
