@@ -43,7 +43,7 @@ BetterknowBundle\Entity\Quizz:
             groups: ['quizz', 'pack']
         question:
             groups: ['quizz', 'pack']
-        answers:
+        responses:
             groups: ['quizz']
             
 BetterknowBundle\Entity\Answer:

@@ -42,3 +42,9 @@ BetterknowBundle\Entity\Gem:
     properties:
         gender:
             - Type: bool
+            
+BetterknowBundle\Entity\Quizz:
+    properties:
+        question:
+            - Type: string
+            - NotBlank: ~

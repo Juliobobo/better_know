@@ -29,9 +29,10 @@ class Quizz
     private $question;
    
     /**
-     * @ORM\ManyToMany(targetEntity="BetterknowBundle\Entity\Answer", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="BetterknowBundle\Entity\User", cascade={"persist"})
+     * @ORM\JoinTable(name="quizz_responses")
      */
-    private $answers;
+    private $responses;
     
     /**
      * @ORM\ManyToMany(targetEntity="BetterknowBundle\Entity\Category", cascade={"persist"})
@@ -43,7 +44,7 @@ class Quizz
      */
     public function __construct()
     {
-        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->responses = new \Doctrine\Common\Collections\ArrayCollection();
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -82,37 +83,37 @@ class Quizz
     }
 
     /**
-     * Add answer
+     * Add response
      *
-     * @param \BetterknowBundle\Entity\Answer $answer
+     * @param \BetterknowBundle\Entity\User $response
      *
      * @return Quizz
      */
-    public function addAnswer(\BetterknowBundle\Entity\Answer $answer)
+    public function addResponse(\BetterknowBundle\Entity\User $response)
     {
-        $this->answers[] = $answer;
+        $this->responses[] = $response;
 
         return $this;
     }
 
     /**
-     * Remove answer
+     * Remove response
      *
-     * @param \BetterknowBundle\Entity\Answer $answer
+     * @param \BetterknowBundle\Entity\User $response
      */
-    public function removeAnswer(\BetterknowBundle\Entity\Answer $answer)
+    public function removeResponse(\BetterknowBundle\Entity\User $response)
     {
-        $this->answers->removeElement($answer);
+        $this->responses->removeElement($response);
     }
 
     /**
-     * Get answers
+     * Get responses
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAnswers()
+    public function getResponses()
     {
-        return $this->answers;
+        return $this->responses;
     }
 
     /**

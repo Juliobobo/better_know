@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\View;
 use BetterknowBundle\Entity\Quizz;
+use BetterknowBundle\Form\QuizzType;
 
 class QuizzController extends Controller
 {
@@ -60,20 +61,37 @@ class QuizzController extends Controller
     {
         $quizz = new Quizz();
         
-        $form = $this->createForm(GemType::class, $gem);
+        $form = $this->createForm(QuizzType::class, $quizz);
 
-        // Le paramétre false dit à Symfony de garder les valeurs dans notre
-        // entité si l'utilisateur n'en fournit pas une dans sa requête
         $form->submit($request->request->all());
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($gem);
+            $em = $this->em();
+            $em->persist($quizz);
             $em->flush();
-            return $gem;
+            return $quizz;
         } else {
             return $form;
         }
+    }
+    
+    /**
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\Delete("/quizz/{id}")
+     */
+    public function removeQuizzAction(Request $request)
+    {
+        $quizz = $this->em()->getRepository('BetterknowBundle:Quizz')
+                    ->find($request->get('id'));
+
+        if (empty($quizz)) {
+            return $this->notFound('Quizz');
+        }
+        
+        $this->em()->remove($quizz);
+        $this->em()->flush();
+        
+        return $this->succes();
     }
     
     private function em(){
@@ -85,4 +103,8 @@ class QuizzController extends Controller
         return \FOS\RestBundle\View\View::create(['message' => $param.' not found'], Response::HTTP_NOT_FOUND);
     }
     
+    private function succes()
+    {
+        return \FOS\RestBundle\View\View::create(['message' => 'Success'], Response::HTTP_NOT_FOUND);
+    }
 }

@@ -29,9 +29,9 @@ class Quizz
     private $question;
    
     /**
-     * @ORM\ManyToMany(targetEntity="BetterknowBundle\Entity\Answer", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="BetterknowBundle\Entity\User", cascade={"persist"})
      */
-    private $answers;
+    private $responses;
     
     /**
      * @ORM\ManyToMany(targetEntity="BetterknowBundle\Entity\Category", cascade={"persist"})
