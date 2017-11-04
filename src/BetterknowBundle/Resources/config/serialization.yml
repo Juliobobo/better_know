@@ -3,13 +3,13 @@
 BetterknowBundle\Entity\User:
     attributes:
         id:
-            groups: ['gem', 'user', 'friend']
+            groups: ['gem', 'user', 'friend', 'quizz', 'response']
         username:
-            groups: ['user', 'auth-token', 'friend']
+            groups: ['user', 'auth-token', 'friend', 'response']
         firstName:
-            groups: ['user', 'auth-token', 'friend']
+            groups: ['user', 'auth-token', 'friend', 'response']
         lastName:
-            groups: ['user', 'auth-token', 'friend']
+            groups: ['user', 'auth-token', 'friend', 'response']
         age:
             groups: ['user', 'auth-token', 'friend']
         email:
@@ -22,9 +22,9 @@ BetterknowBundle\Entity\Friend:
         id:
             groups: ['friend']
         state:
-            groups: ['friend']
+            groups: ['friend', 'quizz', 'response']
         friend:
-            groups: ['friend']
+            groups: ['friend', 'quizz', 'response']
         user:
             groups: ['confirmShip']
 
@@ -46,14 +46,6 @@ BetterknowBundle\Entity\Quizz:
         responses:
             groups: ['quizz']
             
-BetterknowBundle\Entity\Answer:
-    attributes:
-        id:
-            groups: ['answer']
-        response:
-            groups: ['answer']
-        question:
-            groups: ['answer']
 
 BetterknowBundle\Entity\AuthToken:
     attributes:
