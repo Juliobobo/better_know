@@ -124,7 +124,7 @@ class QuizzController extends Controller
                 
                 if($count == 4) break;
             }
-        
+            return $choice_list;
         }
     }
     
